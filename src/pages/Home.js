@@ -4,15 +4,20 @@ import { useEffect, useState } from "react";
 
 export const Home = () => {
   const [products, setProducts] = useState([]);
+  const [skip, setSkip] = useState(0);
+
+  const fetchData = async () => {
+    const res = await ProductService.getAll(10, skip);
+    setProducts(res.products);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await ProductService.getAll();
-      setProducts(res.products);
-    };
-
     fetchData();
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [skip]);
 
   return (
     <div>
@@ -32,6 +37,9 @@ export const Home = () => {
             })}
         </ul>
       </div>
+
+      <button onClick={() => setSkip(skip - 10)}>precedent</button>
+      <button onClick={() => setSkip(skip + 10)}>suivant</button>
     </div>
   );
 };

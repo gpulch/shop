@@ -4,21 +4,14 @@ import { useEffect, useState } from "react";
 import store from "../../store";
 
 const BaseLayout = ({ children }) => {
-  //   const articles = useSelector((state) => state.articles);
-  const [articles, setArticles] = useState([]);
-  console.log(store.getState());
-
-  useEffect(() => {
-
-  }, []);
+  const count = useSelector((state) => state.articles.length);
 
   return (
     <>
       <header>
         <Nav />
+        nb product : {count}
       </header>
-      {articles && console.log(articles)}
-      {articles.count}
       <main>{children}</main>
     </>
   );
